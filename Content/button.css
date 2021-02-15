@@ -1,0 +1,90 @@
+﻿
+
+.circle,
+.inner {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    box-sizing: content-box;
+}
+
+.circle {
+    background-color: #fff;
+    padding: 5px;
+    position: relative;
+    box-shadow: inset -5px 5px 5px rgba(0,0,0,.2), -5px 5px 15px rgba(0,0,0,.3);
+    display: inline-block;
+    margin: 5px auto;
+}
+
+    .circle::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        box-shadow: inset -2px 2px 2px #fff;
+        border-radius: 50%;
+    }
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset -3px 3px 6px rgba(0, 0, 0, .3);
+    background: #337AB7; /* Фон кнопки */
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+    transition: all .3s ease-in-out;
+}
+
+a :hover .inner {
+    background: #BFE2FF; /* Фон кнопки при наведении */
+    color: #337AB7;
+}
+
+
+
+.semi-transparent-button {
+    display: block;
+    box-sizing: border-box;
+    width: 60px;
+    max-width: 60px;
+    background: #fff; /* запасной цвет для старых браузеров */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 0px;
+    border-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-out;
+    position: fixed; /* Фиксированное положение */
+    right: 10px;
+    bottom: 10px;
+}
+
+.semi-transparent-button {
+    display: block;
+    box-sizing: border-box;
+    width: 60px;
+    max-width: 60px;
+    background: #fff; /* запасной цвет для старых браузеров */
+    background: rgba(255, 255, 255, 0);
+    border-radius: 0px;
+    border-color: rgba(255, 255, 255, 0);
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: all 0.3s ease-out;
+    position: fixed; /* Фиксированное положение */
+    right: 10px;
+    bottom: 10px;
+}
