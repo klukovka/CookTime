@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Home - Brand</title> 
+
+        <link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic">
+        <link rel="stylesheet" href="~/assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="~/assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="~/assets/css/Highlight-Phone.css">
+        <link rel="stylesheet" href="~/assets/css/Login-Form-Clean.css">
+        <link rel="stylesheet" href="~/assets/css/untitled.css">
+        <link rel="stylesheet" href="~/Content/button.css"/>
+    </head>
+    <body>
+        <nav class="navbar navbar-light navbar-expand bg-light navigation-clean">
+            <div class="container">
+                @Html.ActionLink("CookTime", "AllReceipts", "User", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="collapse navbar-collapse" id="navcol-1">
+                                      
+                    <a class = "btn btn-primary ml-auto", role = "button",
+                        style = "font-family: Lato, sans-serif;" onclick="Exit()">Выйти</a>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer class="footer bg-light">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
+                            <ul class="list-inline mb-2">
+                                <li class="list-inline-item">@Html.ActionLink("About", "About", "User")</li>
+                                <li class="list-inline-item"><span>⋅</span></li>
+                                <li class="list-inline-item"><a href="#">Contact</a></li>
+                                <li class="list-inline-item"><span>⋅</span></li>
+                                <li class="list-inline-item"><a href="#">Terms of &nbsp;Use</a></li>
+                                <li class="list-inline-item"><span>⋅</span></li>
+                                <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+                                <li class="list-inline-item"><span>⋅</span></li>
+                                <li class="list-inline-item">@Html.ActionLink("Help", "Help", "User")</li>
+                            </ul>
+                            <p class="text-muted small mb-4 mb-lg-0">© CookTime @DateTime.Now.Year. All Rights Reserved.</p>
+                        </div>
+                        <div class="col-lg-6 my-auto h-100 text-center text-lg-right">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-facebook fa-2x fa-fw"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-twitter fa-2x fa-fw"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-instagram fa-2x fa-fw"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="~/assets/js/jquery.min.js"></script>
+        <script src="~/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+
+            $(function () {
+                $.ajaxSetup({ cache: false });
+                $(".btn btn-primary ml-auto").click(function (e) {
+
+                    e.preventDefault();
+                    $.get(this.href, function (data) {
+                        $('#dialogContent').html(data);
+                        $('#modDialog').modal('show');
+                    });
+                });
+            })
+        </script>
+        <script>
+            function Exit() {
+                var result = confirm("Выйти из профиля? ВСЕ ВНЕСЕННЫЕ ИЗМЕНЕНИЯ НЕ БУДУТ СОХРАНЕНЫ!");
+                if (result) {
+                    window.location.href = "Exit";
+                }
+            }
+        </script>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+        
+    </body>
+
+    
+</html>
+

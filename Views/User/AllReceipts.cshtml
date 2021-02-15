@@ -1,0 +1,175 @@
+﻿@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+    <body>
+
+        <table>
+            <tr>
+                <td>
+                    Тип блюда:
+                </td>
+
+                <td>
+                    <select id="Type" name="Type" class="form-control" style="margin: 15px;" placeholder="Выберите тип блюда">
+
+                        @if (ViewBag.Type == "Первое блюдо")
+                        {
+                        <option selected="selected">Все</option>
+                        }
+                        else
+                        {
+                            <option>Все</option>
+
+                        }
+                        @if (ViewBag.Type == "Первое блюдо")
+                        {
+                            <option selected="selected">Первое блюдо</option>
+                        }
+                        else
+                        {
+                            <option>Первое блюдо</option>
+                        }
+                        @if (ViewBag.Type == "Второе блюдо")
+                        {
+                            <option selected="selected">Второе блюдо</option>
+                        }
+                        else
+                        {
+                            <option>Второе блюдо</option>
+                        }
+                        @if (ViewBag.Type == "Закуска")
+                        {
+                            <option selected="selected">Закуска</option>
+                        }
+                        else
+                        {
+                            <option>Закуска</option>
+                        }
+                        @if (ViewBag.Type == "Десерт")
+                        {
+                            <option selected="selected">Десерт</option>
+                        }
+                        else
+                        {
+                            <option>Десерт</option>
+                        }
+
+                    </select>
+                </td>
+                <td>
+                    <input type="search" value="@ViewBag.val" placeholder="Введите название блюда" class="form-control" style="width: 300px; margin: 20px" name="val" id="val">
+
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="filter()" type="button" name="action" style="margin-top: 20 px">🔍</button>
+
+                </td>
+
+            </tr>
+        </table>
+
+
+
+        @foreach (var item in ViewBag.Receipts)
+        {
+
+            <div class="highlight-phone" style="margin: 15px; border-radius: 20px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="intro">
+                                <h2 style="margin-left: 30px">@item.Name</h2>
+                                <div class="row">
+                                    <div class="col" style="margin-left: 30px">
+                                        <label>Тип блюда: @item.Type</label> <br />
+                                        <label>Время приготовления: @item.Time</label><br />
+                                        <label>Каллорийность: @item.Callories</label><br />
+                                        <label>Б/Ж/У: @item.Proteins/@item.Fats/@item.Carbohydrates</label><br />
+
+                                    </div>
+                                    <div class="col">
+                                        @Html.ActionLink("Приготовить!", "Cook", new
+                                   {
+                                       Date_create = item.Date_create.ToString(),
+                                       Name = item.Name
+                                   }, new { @class = "btn btn-primary", @role = "button", @style = "width: 185px;" }) <br />
+                                        @Html.ActionLink("Редактировать", "UpdateReceipt", new
+                                   {
+                                       Date_create = item.Date_create.ToString(),
+                                       Name = item.Name
+                                   }, new
+                                   {
+                                       @class = "btn btn-primary",
+                                       @role = "button",
+                                       @style = "background: white;border-width: medium;  border: 2px solid #007bff; color: #007bff; margin-top: 5px;width: 185px;"
+                                   })<br />
+                                        <a class="btn btn-primary" role="button" style=" color: rgb(218,5,43); background-color: white; 
+ border: 2px solid rgb(218,5,43);
+        margin-top: 5px;
+        width: 185px;" onclick="Del('@item.Date_create', '@item.Name')">Удалить</a>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="d-none d-md-block phone-mockup">
+
+                                @if (item.Image != null)
+                                {
+                                    @Html.Raw("<img src=\"data:image/jpeg;base64,"
+                          + Convert.ToBase64String(item.Image) + "\"  name=\"Image\" id=\"image-preview\"" +
+                          " class=\"device\" style=\"width: 500px; height:auto\"/>")
+                                }
+                                else
+                                {
+                                    <img class="device" src="~/assets/img/iconfinder_food-drink-36_809001.png" style="width: 200px; height:auto; ">
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function Del(date, name){
+                    var result = confirm("Удалить рецепт?");
+                    if (result) {
+                    window.location.href = "Delete?Date_create=" + date + "&Name=" + name;
+                    }
+                }
+            </script>
+        }
+
+
+
+        <button value="" class="semi-transparent-button" name="action" onclick="Add()">
+            <a>
+                <div class="circle">
+                    <div class="inner">
+                        +
+                    </div>
+                </div>
+            </a>
+        </button>
+
+        <script>
+            function Add() {
+                window.location.href = "AddReceipt";
+            }
+        </script>
+
+        <script>
+            function filter() {
+                let val = document.getElementById('val').value;
+                let type = document.getElementById('Type').value;
+
+                window.location.href = "AllReceipts?Type=" + type + "&val=" + val;
+            }
+        </script>
+
+    </body>

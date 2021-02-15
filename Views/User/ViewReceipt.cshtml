@@ -1,0 +1,257 @@
+﻿@model CookTime.Models.Receipt
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+    <body>
+        <a onclick="goBack()" ;" class="forgot" style="color: #007bff; margin-top:10px">Назад</a>
+
+        @using (Html.BeginForm("AddReceipt", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <h1 style="position: center; text-align: center; margin: 10px">Просмотр рецепта</h1>
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row" style="height: 300px;">
+                                <div class="col d-xl-flex flex-fill justify-content-center align-items-center align-content-center justify-content-xl-center" style="text-align: center;">
+                                    @if (Model.Image != null)
+                                    {
+                                        @Html.Raw("<img style='width:250px;  z-index:10' src=\"data:image/jpeg;base64,"
+                                                        + Convert.ToBase64String(Model.Image) + "\" name=\"Image\" />")
+                                    }
+                                    <img src="~/assets/img/iconfinder_food-drink-36_809001.png" id="back" style="width: 250px; position: absolute;" alt="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center; margin-top: 50px">
+                                    <div class="col" style="text-align: center;"><input class="btn btn-primary" type="submit" value="Скачать рецепт в формате .pdf&nbsp;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="        text-align: left;
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Название</strong></div>
+
+                                <div class="col">
+                                    @Html.Label($"{Model.Name}", new { @class = "form-control", @style = "margin: 15px;" })
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Время приготовления</strong></div>
+                                <div class="col">
+                                    @if (Model.Time != null)
+                                    {
+                                        @Html.Label($"{Model.Time.ToString()}", new { @class = "form-control", @style = "margin: 15px;", @name = "Time" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Тип блюда</strong></div>
+                                <div class="col">
+                                    @if (Model.Type != null)
+                                    {
+                                        @Html.Label($"{Model.Type.ToString()}", new { @class = "form-control", @style = "margin: 15px;", @name = "Type" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Калорийность (на 100г)</strong></div>
+                                <div class="col">
+                                    @if (Model.Callories != null)
+                                    {
+                                        @Html.Label($"{Model.Callories.ToString()} ккал", new { @class = "form-control", @style = "margin: 15px;", @name = "Callories" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Белки</strong></div>
+                                <div class="col">
+                                    @if (Model.Proteins != null)
+                                    {
+                                        @Html.Label($"{Model.Proteins.ToString()} г", new { @class = "form-control", @style = "margin: 15px;", @name = "Proteins" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Жиры</strong></div>
+                                <div class="col">
+                                    @if (Model.Fats != null)
+                                    {
+                                        @Html.Label($"{Model.Fats.ToString()} г", new { @class = "form-control", @style = "margin: 15px;", @name = "Fats" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Углеводы</strong></div>
+                                <div class="col">
+                                    @if (Model.Carbohydrates != null)
+                                    {
+                                        @Html.Label($"{Model.Carbohydrates.ToString()} г", new { @class = "form-control", @style = "margin: 15px;", @name = "Carbohydrates" })
+
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Ингредиенты</strong></div>
+                                <div class="col">
+                                    @if (Model.Ingredients != null)
+                                    {
+                                        <textarea cols="50" id="Ingredients" name="Ingredients" rows="5"
+                                                  class="form-control" , style="margin: 15px;" readonly="readonly">
+@Model.Ingredients.ToString()
+</textarea>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Инструкция приготовления</strong></div>
+                                <div class="col">
+                                    @if (Model.Steps != null)
+                                    {
+                                        <textarea cols="50" id="Steps" name="Steps" rows="5"
+                                                  class="form-control" , style="margin: 15px;" readonly="readonly">
+@Model.Steps.ToString()
+</textarea>
+                                    }
+                                    else
+                                    {
+                                        <label class="form-control" style="margin: 15px;">Не указано</label>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input hidden="hidden" type="datetime" class="form-control" style="margin: 15px;" name="Date_create" id="Date_create" , value="@Model.Date_create" />
+                                    <input hidden="hidden" type="text" value="@Model.Name" name="Name" id="Name" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <button name="action" value="update" class="button" onclick="UpdateClick()">
+            <a>
+                <div class="circle">
+                    <div class="inner">
+                        📝
+                    </div>
+                </div>
+            </a>
+        </button>
+
+
+        <button class="semi-transparent-button" name="action" value="" onclick="DeleteClick()">
+            <a>
+                <div class="circle">
+                    <div class="inner" id="delete">
+                        🗑
+                    </div>
+                </div>
+            </a>
+        </button>
+
+        <script>
+            function goBack() {
+               
+                    window.location.href = "AllReceipts";
+                
+            }
+        </script>
+        <style>
+
+            .button {
+                display: block;
+                box-sizing: border-box;
+                width: 60px;
+                max-width: 60px;
+                background: #fff; /* запасной цвет для старых браузеров */
+                background: rgba(255, 255, 255, 0);
+                border-radius: 0px;
+                border-color: rgba(255, 255, 255, 0);
+                color: #fff;
+                text-align: center;
+                text-decoration: none;
+                letter-spacing: 1px;
+                transition: all 0.3s ease-out;
+                position: fixed; /* Фиксированное положение */
+                right: 10px;
+                bottom: 80px;
+            }
+
+            #delete {
+                background: #da052b;
+            }
+
+            a :hover #delete {
+                background: #ffa1b1; /* Фон кнопки при наведении */
+                color: #da052b;
+            }
+            }
+        </style>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            // '2020-12-02 12:05:03.057'
+            function UpdateClick() {
+                var date = document.getElementById("Date_create").value;
+                var name = document.getElementById("Name").value;
+                window.location.href = "Update?Date_create=" + date + "&Name=" + name;
+
+            }
+
+            function DeleteClick() {
+                var result = confirm("Удалить рецепт?");
+                if (result) {
+                    var date = document.getElementById("Date_create").value;
+                    var name = document.getElementById("Name").value;
+                    window.location.href = "Delete?Date_create=" + date + "&Name=" + name;
+                }
+            }
+        </script>
+
+    </body>

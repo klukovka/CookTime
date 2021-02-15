@@ -1,0 +1,134 @@
+﻿@model CookTime.Models.Receipt
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+    <body style="background: rgb(238,244,247);">
+        <a onclick="goBack()" style="color: #007bff; margin-top:10px" id="b">Назад</a>
+
+
+
+        @using (Html.BeginForm("AddReceipt", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <h1 style="position: center; text-align: center; margin: 10px">Добавление рецепта</h1>
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row" style="height: 300px;">
+                                <div class="col d-xl-flex flex-fill justify-content-center align-items-center align-content-center justify-content-xl-center" style="text-align: center;">
+                                    <img src="" style="width: 250px; z-index:10" id="image-preview" alt="">
+                                    <img src="~/assets/img/iconfinder_food-drink-36_809001.png" id="back" style="width: 250px; position: absolute;" alt="">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center; margin-top: 50px">
+                                    <input class="btn btn-primary" name="upload"
+                                           id="upload" type="file" accept="image/*" style="width: 300px;">
+                                    <a class="btn btn-primary"
+                                       id="delete-link" style="margin-top: 10px; width: 300px;" name="action" value="Удалить">Удалить</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start"
+                                     style="width: 250px; min-width: 250px; max-width: 250px;">
+                                    <strong style="font-family: Lato, sans-serif;font-size: 20px;">Название</strong>
+                                </div>
+
+                                <div class="col">
+                                    <input name="Name" id="Name" type="text" class="form-control" style="margin: 15px;" placeholder="Блинчики со сметаной">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: right;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Время приготовления</strong></div>
+                                <div class="col"><input name="Time" id="Time" type="time" class="form-control" style="margin: 15px;" value=""></div>
+
+
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Тип блюда</strong></div>
+                                <div class="col">
+                                    <select id="Type" name="Type" class="form-control" style="margin: 15px; font-size: 14px">
+                                        <option>Первое блюдо</option>
+                                        <option>Второе блюдо</option>
+                                        <option>Закуска</option>
+                                        <option>Десерт</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Калорийность</strong></div>
+                                <div class="col"><input placeholder="50ккал на 100г " name="Callories" id="Callories" type="number" class="form-control" style="margin: 15px;"></div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Белки</strong></div>
+                                <div class="col"><input placeholder="20" name="Proteins" id="Proteins" type="number" class="form-control" style="margin: 15px;"></div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Жиры</strong></div>
+                                <div class="col"><input placeholder="20" name="Fats" id="Fats" type="number" class="form-control" style="margin: 15px;"></div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Углеводы</strong></div>
+                                <div class="col"><input placeholder="20" name="Carbohydrates" id="Carbohydrates" type="number" class="form-control" style="margin: 15px;"></div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Ингредиенты</strong></div>
+                                <div class="col"><textarea name="Ingredients" id="Ingredients" class="form-control" style="margin: 15px;" placeholder="Внимательно введите название, вес и количество ингредиентов"></textarea></div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Инструкция приготовления</strong></div>
+                                <div class="col"><textarea name="Steps" id="Steps" class="form-control" style="margin: 15px;" placeholder="Заполните инструкцию по приготовлению блюда"></textarea></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="semi-transparent-button" name="action" value="">
+                <a>
+                    <div class="circle">
+                        <div class="inner">
+                            ✓
+                        </div>
+                    </div>
+                </a>
+            </button>
+        }
+
+
+        <script>
+            function goBack() {
+                var res = confirm("Все введенные данные не сохранятся! Продолжить?");
+                if (res == true) {
+                                    window.location.href = "AllReceipts";
+                }
+            }
+        </script>
+
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            let imgPrev = document.getElementById('image-preview'),
+                uploadImg = document.getElementById('upload'),
+                btDel = document.getElementById('delete-link');
+            let back = document.getElementById('back');
+            const addImg = () => {
+                imgPrev.src = URL.createObjectURL(event.target.files[0]);
+            }
+            delImg = () => {
+                uploadImg.value = imgPrev.src = '';
+                URL.revokeObjectURL(imgPrev.src);
+
+            };
+            uploadImg.addEventListener('change', addImg);
+            btDel.addEventListener('click', delImg);
+        </script>
+
+    </body>

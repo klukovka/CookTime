@@ -1,0 +1,316 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+
+    <body style="background: rgb(238,244,247);">
+        <a onclick="goBack()" style="color: #007bff; margin-top:10px" id="b">Назад</a>
+
+
+
+        @using (Html.BeginForm("AddReceipt", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+
+            <h1 style="position: center; text-align: center; margin: 10px">Редактирование рецепта</h1>
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row" style="height: 300px;">
+                                <div class="col d-xl-flex flex-fill justify-content-center align-items-center align-content-center justify-content-xl-center" style="text-align: center;">
+                                    @if (ViewBag.Image != "")
+                                    {
+                                        @Html.Raw("<img style='width:250px;  z-index:100' src=\"data:image/jpeg;base64,"
+                                                        + ViewBag.Image + "\" name=\"Image\"  id=\"image-preview\" alt=\"\"/>")
+                                    }
+                                    else
+                                    {
+                                        <img src="~/assets/img/iconfinder_food-drink-36_809001.png" style="width: 250px; position: absolute; z-index:10;" id="image-preview" alt="">
+
+                                    }
+                                    <img src="~/assets/img/iconfinder_food-drink-36_809001.png" id="back" style="width: 250px; position: absolute;" alt="">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="text-align: center; margin-top: 50px">
+                                    <div class="col" style="text-align: center; margin-top: 50px">
+                                        <input class="btn btn-primary" name="upload"
+                                               id="upload" type="file" accept="image/*" style="width: 300px;">
+                                        <a class="btn btn-primary"
+                                           id="delete-link" style="margin-top: 10px; width: 300px;" name="action" value="Удалить">Удалить</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="        text-align: left;
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Название</strong></div>
+
+                                <div class="col">
+                                    <input name="Name" id="Name" type="text" class="form-control" style="margin: 15px;" placeholder="Блинчики со сметаной" value="@ViewBag.Name">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Время приготовления</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Time != null)
+                                    {
+                                        <input name="Time" id="Time" type="time" class="form-control" style="margin: 15px;" value="@ViewBag.Time">
+                                    }
+                                    else
+                                    {
+                                        <input name="Time" id="Time" type="time" class="form-control" style="margin: 15px;" value="">
+                                    }
+                                </div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;">
+                                    <strong style="font-family: Lato, sans-serif;font-size: 20px;">Тип блюда</strong>
+                                </div>
+
+                                <div class="col">
+                                    <select id="Type" name="Type" class="form-control" style="margin: 15px; font-size:14px">
+                                        @if (ViewBag.Type == "Первое блюдо")
+                                        {
+                                            <option selected="selected">Первое блюдо</option>
+                                        }
+                                        else
+                                        {
+                                            <option>Первое блюдо</option>
+                                        }
+                                        @if (ViewBag.Type == "Второе блюдо")
+                                        {
+                                            <option selected="selected">Второе блюдо</option>
+                                        }
+                                        else
+                                        {
+                                            <option>Второе блюдо</option>
+                                        }
+                                        @if (ViewBag.Type == "Закуска")
+                                        {
+                                            <option selected="selected">Закуска</option>
+                                        }
+                                        else
+                                        {
+                                            <option>Закуска</option>
+                                        }
+                                        @if (ViewBag.Type == "Десерт")
+                                        {
+                                            <option selected="selected">Десерт</option>
+                                        }
+                                        else
+                                        {
+                                            <option>Десерт</option>
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Калорийность</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Callories != null)
+                                    {
+                                        <div class="col"><input placeholder="50ккал на 100г " name="Callories" id="Callories" type="number" class="form-control" style="margin: 15px;" value="@ViewBag.Callories"></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><input placeholder="50ккал на 100г " name="Callories" id="Callories" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                </div>
+
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Белки</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Proteins != null)
+                                    {
+                                        <div class="col"><input placeholder="20" value="@ViewBag.Proteins" name="Proteins" id="Proteins" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><input placeholder="20" name="Proteins" id="Proteins" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Жиры</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Fats != null)
+                                    {
+                                        <div class="col"><input placeholder="20" value="@ViewBag.Fats" name="Fats" id="Fats" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><input placeholder="20" name="Fats" id="Fats" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                </div>
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 140px;min-width: 140px;max-width: 140px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Углеводы</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Carbohydrates != null)
+                                    {
+                                        <div class="col"><input value="@ViewBag.Carbohydrates" placeholder="20" name="Carbohydrates" id="Carbohydrates" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><input placeholder="20" name="Carbohydrates" id="Carbohydrates" type="number" class="form-control" style="margin: 15px;"></div>
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Ингредиенты</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Ingredients != null)
+                                    {
+                                        <textarea cols="50" id="Ingredients" name="Ingredients" rows="5"
+                                                  class="form-control" , style="margin: 15px;">
+@ViewBag.Ingredients.ToString()
+</textarea>
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><textarea name="Ingredients" id="Ingredients" class="form-control" style="margin: 15px;" placeholder="Внимательно введите название, вес и количество ингредиентов"></textarea></div>
+
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-xl-flex justify-content-center align-items-center align-content-center justify-content-xl-start" style="text-align: left;width: 250px;min-width: 250px;max-width: 250px;"><strong style="font-family: Lato, sans-serif;font-size: 20px;">Инструкция приготовления</strong></div>
+                                <div class="col">
+                                    @if (ViewBag.Steps != null)
+                                    {
+                                        <textarea cols="50" id="Steps" name="Steps" rows="5"
+                                                  class="form-control" , style="margin: 15px;">
+@ViewBag.Steps.ToString()
+</textarea>
+                                    }
+                                    else
+                                    {
+                                        <div class="col"><textarea name="Steps" id="Steps" class="form-control" style="margin: 15px;" placeholder="Заполните инструкцию по приготовлению блюда"></textarea></div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+
+                <input value="@ViewBag.Image" name="OldImg" hidden="hidden"/>       
+                <input value="@ViewBag.Date_create.ToString()" name="OldDate" id="OldDate"  hidden="hidden"/>
+                <input value="@ViewBag.Name" id="OldName" hidden="hidden"/>
+         
+
+            <button name="action" value="" class="button">
+                <a>
+                    <div class="circle">
+                        <div class="inner">
+                            ✓
+                        </div>
+                    </div>
+                </a>
+            </button>
+
+        }
+
+        <button class="semi-transparent-button" name="action" value="" onclick="DeleteClick()">
+            <a>
+                <div class="circle">
+                    <div class="inner" id="delete">
+                        🗑
+                    </div>
+                </div>
+            </a>
+        </button>
+
+
+        <script>
+            function goBack() {
+                var res = confirm("Все введенные данные не сохранятся! Продолжить?");
+                if (res == true) {
+                    window.location.href = "AllReceipts";
+                }
+            }
+        </script>
+
+        <style>
+
+            .button {
+                display: block;
+                box-sizing: border-box;
+                width: 60px;
+                max-width: 60px;
+                background: #fff; /* запасной цвет для старых браузеров */
+                background: rgba(255, 255, 255, 0);
+                border-radius: 0px;
+                border-color: rgba(255, 255, 255, 0);
+                color: #fff;
+                text-align: center;
+                text-decoration: none;
+                letter-spacing: 1px;
+                transition: all 0.3s ease-out;
+                position: fixed; /* Фиксированное положение */
+                right: 10px;
+                bottom: 80px;
+            }
+
+            #delete {
+                background: #da052b;
+            }
+
+            a :hover #delete {
+                background: #ffa1b1; /* Фон кнопки при наведении */
+                color: #da052b;
+            }
+        </style>
+
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            function DeleteClick() {
+                var result = confirm("Удалить рецепт?");
+                if (result) {
+                    var date = document.getElementById("OldDate").value;
+                    var name = document.getElementById("OldName").value;
+                    window.location.href = "Delete?Date_create=" + date + "&Name=" + name;
+                }
+            }
+        </script>
+
+        <script>
+            let imgPrev = document.getElementById('image-preview'),
+                uploadImg = document.getElementById('upload'),
+                btDel = document.getElementById('delete-link');
+            let back = document.getElementById('back');
+            const addImg = () => {
+                imgPrev.src = URL.createObjectURL(event.target.files[0]);
+
+            }
+            delImg = () => {
+                uploadImg.value = imgPrev.src = '';
+                URL.revokeObjectURL(imgPrev.src);
+
+            };
+            uploadImg.addEventListener('change', addImg);
+            btDel.addEventListener('click', delImg);
+        </script>
+    </body>
